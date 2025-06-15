@@ -251,13 +251,18 @@
         loadSheet();
     }
 
-    // Parse Google Sheets URL to get the ID
-    function getSheetId(url) {
+    // Parse Google Sheets URL or ID to get the ID
+    function getSheetId(input) {
+        // If input matches the ID pattern directly, return it
+        if (/^[a-zA-Z0-9-_]+$/.test(input)) {
+            return input;
+        }
+        
         // Handle regular Google Sheets URLs
-        let match = url.match(/spreadsheets\/d\/([a-zA-Z0-9-_]+)/);
+        let match = input.match(/spreadsheets\/d\/([a-zA-Z0-9-_]+)/);
         if (match) return match[1];
         
-        throw new Error('Invalid Google Sheets URL. Please use a standard Google Sheets URL.');
+        throw new Error('Invalid Google Sheets URL or ID. Please use either a standard Google Sheets URL or just the sheet ID.');
     }
 
     // Create the interlinear display
@@ -349,7 +354,18 @@
 
     function openInSheets() {
         const urlInput = document.getElementById('sheets-url');
-        window.open(urlInput.value, '_blank');
+        const input = urlInput.value.trim();
+        
+        // If it's already a full URL, use it directly
+        if (input.startsWith('http')) {
+            window.open(input, '_blank');
+            return;
+        }
+        
+        // Otherwise construct the full URL from the ID
+        const sheetId = getSheetId(input);
+        const fullUrl = `https://docs.google.com/spreadsheets/d/${sheetId}`;
+        window.open(fullUrl, '_blank');
     }
 
     // Load sheet data
