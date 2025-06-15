@@ -177,6 +177,22 @@
         margin: 10px 0;
     }
 
+    .loader {
+        display: none;
+        border: 4px solid #f3f3f3;
+        border-radius: 50%;
+        border-top: 4px solid #3498db;
+        width: 40px;
+        height: 40px;
+        margin: 20px auto;
+        animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+
     #back-button {
         position: fixed;
         top: 10px;
@@ -212,6 +228,7 @@
     </div>
 
     <button id="back-button" onclick="resetView()">Back</button>
+    <div id="loader" class="loader"></div>
     <div id="content" class="interlinear-container"></div>
 
     <script>
@@ -312,12 +329,13 @@
         document.getElementById('back-button').style.display = 'none';
         document.querySelector('h1').style.display = 'block';
         document.getElementById('content').innerHTML = '';
-        // Remove query parameter without reloading
+        // Remove query parameter without reloading, keeping the file path
         window.history.pushState({}, '', window.location.pathname);
     }
 
     // Load sheet data
     async function loadSheet() {
+        document.getElementById('loader').style.display = 'block';
         const urlInput = document.getElementById('sheets-url');
         const errorMsg = document.getElementById('error-message');
         const url = urlInput.value.trim();
@@ -362,17 +380,21 @@
             createInterlinear(jsonData);
             errorMsg.textContent = '';
             
-            // Hide input form and show back button
+            // Hide loader and input form, show back button
+            document.getElementById('loader').style.display = 'none';
             document.getElementById('input-form').style.display = 'none';
             document.getElementById('back-button').style.display = 'block';
             document.querySelector('h1').style.display = 'none';
             
-            // Update URL with just the sheet ID
-            const newUrl = new URL(window.location);
+            // Update URL with just the sheet ID, but keep the file path
+            const newUrl = new URL(window.location.pathname, window.location.href);
             newUrl.searchParams.set('id', sheetId);
-            window.history.pushState({}, '', newUrl);
+            window.history.pushState({}, '', newUrl.search);
             
         } catch (error) {
+            document.getElementById('loader').style.display = 'none';
+            document.getElementById('input-form').style.display = 'block';
+            document.querySelector('h1').style.display = 'block';
             errorMsg.innerHTML = `Error: ${error.message}<br><br>
                 Tips:<br>
                 1. Make sure your sheet is shared (File > Share > Anyone with the link)<br>
@@ -391,6 +413,9 @@
         if (idParam) {
             const urlInput = document.getElementById('sheets-url');
             urlInput.value = `https://docs.google.com/spreadsheets/d/${idParam}`;
+            document.getElementById('input-form').style.display = 'none';
+            document.getElementById('loader').style.display = 'block';
+            document.querySelector('h1').style.display = 'none';
             loadSheet();
         }
     });
