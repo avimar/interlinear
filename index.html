@@ -237,6 +237,47 @@
         <button onclick="loadSheet()">Load Sheet</button>
         <button onclick="loadDemo()" style="background: #666;">Demo: Hakaras HaTov</button>
         <div id="error-message" class="error"></div>
+        
+        <div style="margin-top: 20px; padding-top: 20px; border-top: 1px solid #ddd;">
+            <h3>How to Create Your Own Translation</h3>
+            <ol style="line-height: 1.6;">
+                <li>Create a new Google Sheet with three columns: <code>type</code>, <code>english</code>, and <code>hebrew</code></li>
+                <li>You can add <i>nikkud</i> (vowels) with <a href="https://nakdan.dicta.org.il/" target="_blank">Nakdan by DICTA</a></li>
+                <li>To break down Hebrew text into a spreadsheet format:
+                    <ul>
+                        <li>Use an AI tool to separate the text into words/phrases, it can create a rough translation or break down an existing english translation into words/phrases.</li>
+                        <li>Create a tab-separated format (TSV) which can be directly pasted into Google Sheets</li>
+                        <li>Each row should have: type (--blank--/header/big/small), English translation, Hebrew text</li>
+                    </ul>
+                </li>
+                <li>Use these special row types:
+                    <ul>
+                        <li><i>blank</i>: leave it blank for normal text</li>
+						<li><code>header</code>: For titles and section headers</li>
+                        <li><code>big</code>: For emphasized text (larger size)</li>
+                        <li><code>small</code>: For less important text (smaller size)</li>
+                        <li>Empty row: Creates a paragraph break</li>
+                    </ul>
+                </li>
+                <li>Share your Google Sheet:
+                    <ul>
+                        <li>Click the "Share" button in the top-right corner</li>
+                        <li>Under "General access", click "Restricted"</li>
+                        <li>Select "Anyone with the link"</li>
+                        <li>Make sure access is set to "Viewer"</li>
+                        <li>Click "Done"</li>
+                    </ul>
+                </li>
+                <li>Get the URL:
+                    <ul>
+                        <li>Click the "Share" button again</li>
+                        <li>Click "Copy link"</li>
+                        <li>Paste the URL here to view</li>
+						<li>You can share the new link with others, or take a screenshot, or print as a PDF.</li>
+                    </ul>
+                </li>
+            </ol>
+        </div>
     </div>
 
     <button id="back-button" onclick="resetView()">Back</button>
