@@ -235,7 +235,11 @@
     <div id="input-form">
         <input type="text" id="sheets-url" placeholder="Enter Google Sheets URL">
         <button onclick="loadSheet()">Load Sheet</button>
-        <button onclick="loadDemo()" style="background: #666;">Demo: Hakaras HaTov</button>
+        <div style="margin-top: 10px; font-size: 0.9em;">
+            <button onclick="loadDemo()" style="background: #666; font-size: 0.9em; padding: 6px 12px;">Demo: Hakaras HaTov</button>
+            <button onclick="loadAsherYatzar()" style="background: #666; font-size: 0.9em; padding: 6px 12px;">Demo: Asher Yatzar</button>
+            <br><small style="color: #666;">(You can make a copy of these demo sheets to modify for your own use)</small>
+        </div>
         <div id="error-message" class="error"></div>
         
         <div style="margin-top: 20px; padding-top: 20px; border-top: 1px solid #ddd;">
@@ -292,6 +296,11 @@
     // Load demo content
     function loadDemo() {
         document.getElementById('sheets-url').value = 'https://docs.google.com/spreadsheets/d/1TcL04FE0TU3diSOkRY7DZ25ab7DtaLdNkOnWOrIXqss';
+        loadSheet();
+    }
+
+    function loadAsherYatzar() {
+        document.getElementById('sheets-url').value = 'https://docs.google.com/spreadsheets/d/18149H_sdvOXD6sK4IJC9LWHY8IXzlJgEjslVtVNNjno';
         loadSheet();
     }
 
