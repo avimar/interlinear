@@ -40,22 +40,26 @@
         justify-content: center;
         align-items: center;
         width: 100%;
-        margin: 20px 0;
+        margin: 0px 0;
         text-align: center;
-        gap: 15px;
+        gap: 10px;
+        flex-wrap: wrap;
     }
 
     .header-container .hebrew {
         font-size: 32px;
         border-bottom: none;
         margin-bottom: 0;
+        padding: 10px 15px;
     }
 
     .header-container .english {
         font-size: 24px;
         color: #000;
-        max-width: 250px;
-        padding: 0px 1px;
+        max-width: 420px;
+        padding: 10px 15px;
+        white-space: normal;
+        word-break: normal;
     }
 
     .hebrew.big {
@@ -81,19 +85,18 @@
       color: #222;
       text-align: center;
       padding: 0px 1px;
-      word-break: normal;
-      white-space: normal;
-      max-width: 120px;
+      white-space: nowrap;
+      max-width: none;
+      word-break: keep-all;
       direction: ltr;
       cursor: pointer;
       transition: all 0.2s ease;
     }
     
-    .english.unwrapped {
-      white-space: nowrap;
-      max-width: none;
-      max-height: none;
-      word-break: keep-all;
+    .english.wrapped {
+      white-space: normal;
+      max-width: 120px;
+      word-break: normal;
     }
 
     .sentence-break-alt {
@@ -141,7 +144,7 @@
 
     .paragraph-break {
         width: 100%;
-        height: 25px;
+        height: 10px;
     }
 
     body {
@@ -308,7 +311,7 @@
     // Add event listener for double-clicking English text
     document.addEventListener('dblclick', function(event) {
         if (event.target.classList.contains('english')) {
-            event.target.classList.toggle('unwrapped');
+            event.target.classList.toggle('wrapped');
         }
     });
     
@@ -368,13 +371,6 @@
                     english.textContent = row.english;
                     
                     headerContainer.appendChild(hebrew);
-                    
-                    const dash = document.createElement('div');
-                    dash.className = 'english';
-                    dash.style.fontSize = '24px';
-                    dash.textContent = ' - ';
-                    headerContainer.appendChild(dash);
-                    
                     headerContainer.appendChild(english);
                     content.appendChild(headerContainer);
                 } else {
