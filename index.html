@@ -53,6 +53,8 @@
     .header-container .english {
         font-size: 24px;
         color: #000;
+        max-width: 250px;
+        padding: 0px 1px;
     }
 
     .hebrew.big {
@@ -77,11 +79,20 @@
       font-size: 10px;
       color: #222;
       text-align: center;
-      padding: 2px 4px;
-      word-break: keep-all;
-      white-space: nowrap;
-      overflow-wrap: break-word;
+      padding: 0px 1px;
+      word-break: normal;
+      white-space: normal;
+      max-width: 120px;
       direction: ltr;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    
+    .english.unwrapped {
+      white-space: nowrap;
+      max-width: none;
+      max-height: none;
+      word-break: keep-all;
     }
 
     .sentence-break-alt {
@@ -293,6 +304,13 @@
     <div id="content" class="interlinear-container"></div>
 
     <script>
+    // Add event listener for double-clicking English text
+    document.addEventListener('dblclick', function(event) {
+        if (event.target.classList.contains('english')) {
+            event.target.classList.toggle('unwrapped');
+        }
+    });
+    
     // Load demo content
     function loadDemo() {
         document.getElementById('sheets-url').value = 'https://docs.google.com/spreadsheets/d/1TcL04FE0TU3diSOkRY7DZ25ab7DtaLdNkOnWOrIXqss';
