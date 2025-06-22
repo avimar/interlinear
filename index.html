@@ -265,9 +265,9 @@
                 <li>To break down Hebrew text into a spreadsheet format:
                     <ul>
                         <li>Use an AI tool to separate the text into words/phrases, it can create a rough translation or break down an existing english translation into words/phrases. Use a prompt like this: <br>
-							<code>Please take the hebrew text and the english text and transform it to a phrase by phrase translation, of 1-3 hebrew words at a time.<br>
-								Use this format for each line: english &lt;TAB&gt; hebrew.<br>
-								For new paragraphs, make sure to leave an empty line.</code></li>
+							<code>Please take the hebrew text and the english translation and transform it to a phrase by phrase translation, of 1 hebrew words at a time (2 hebrew words if absolutely necessary). Make sure to maintain all source references and any information that's only in one version.<br>
+Use this format for each line: english&lt;TAB&gt;hebrew.<br>
+For new paragraphs, make sure to leave an empty line.</li>
                         <li>Create a tab-separated format (TSV) which can be directly pasted into Google Sheets</li>
                         <li>Each row should have: type (--blank--/header/big/small), English translation, Hebrew text</li>
                     </ul>
